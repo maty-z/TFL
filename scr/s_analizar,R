@@ -1,0 +1,103 @@
+###### Configuracion inicial e importación de librerías
+library(ggplot2)
+library(dplyr)
+library(patchwork)
+library(latex2exp)
+
+###### Cargo resultados de experimentos en un data.frame #####
+list.files("./outputs/",full.names = TRUE) |>
+  lapply(read.table,header = TRUE) |>
+  do.call(rbind,args = _) -> df_estimaciones
+
+#### Grafico densidades exponenciales ####
+# Estos graficos no se encuentran en la tesis,
+#pero pueden ser útil para entender lo que sucede.
+
+lambdas = c(0.5,1,10,30,50)
+lambdas = c(1,10)
+ggplot()+xlim(0,1) + ylim(0,10) + 
+  geom_function(fun=dexp,aes(colour = "0.5"), args = c(rate = 0.5)) +
+  geom_function(fun=dexp,aes(colour = "1"), args = c(rate = 1)) +
+  geom_function(fun=dexp,aes(colour = "10"), args = c(rate = 10)) +
+  geom_function(fun=dexp,aes(colour = "30"), args = c(rate = 30))+
+  geom_function(fun=dexp,aes(colour = "50"), args = c(rate = 50))
+
+##### Boxplots del est.u por cada escenario ####
+## Hago tanda de gráficos separados por lambdas
+df_estimaciones |>
+  mutate(
+    factor_exp_lambda = case_match(
+      exp_lambda, 
+      c(4,19) ~ "Continuo", 
+      .default = as.factor(exp_lambda)
+    )) |>
+      ggplot() + aes(x = factor(size), fill = factor(p_umbral)) +
+      geom_boxplot(aes(y = est.u)) + 
+      facet_wrap(~factor_exp_lambda)+
+      geom_hline(yintercept = 1, show.legend =T)+
+      labs(fill = TeX("$p_{umbral}$"), 
+           x = "Tamaño muestra", y = TeX("\\hat{u}"), 
+           )
+ggsave("./outputs_charts/boxplot_estimacion_u.png",
+       width = 32, height = 18, units = "cm")
+
+#### Error MAD del est.u en función del tamaño de muestra ####
+df_estimaciones |>
+  mutate(
+    factor_exp_lambda = case_match(
+      exp_lambda, 
+      c(4,19) ~ "Continuo", 
+      .default = as.factor(exp_lambda)
+    )
+  ) |>
+  group_by(factor_exp_lambda,size,p_umbral) |>
+  summarise(est.u.mad = median(abs(est.u-1))) |>
+  ggplot() + aes(x = as.factor(size), 
+                 y = est.u.mad, 
+                 group = factor_exp_lambda,
+                 color = factor_exp_lambda) +
+  geom_point() + geom_line() + 
+  facet_grid(p_umbral~.,labeller = label_both) +
+  labs(x = "Tamaño muestra",
+       y = TeX("EMAD \\hat{u}"),
+       color = TeX("$\\lambda$"))
+
+ggsave(paste("./outputs_charts/",
+             "u_mad_vs_size",
+             ".png", sep = ""),width = 32, height = 18, units = "cm")
+
+
+#### Estimación lambda ####
+#Boxplot
+cbind(df_estimaciones,
+      valor.relativo = df_estimaciones$est.lamb/df_estimaciones$exp_lambda) |> 
+  mutate(
+    factor_exp_lambda = case_match(
+      exp_lambda, 
+      c(4,19) ~ "Continuo", 
+      .default = as.factor(exp_lambda)
+    )
+  ) |>
+  ggplot() + aes(x = as.factor(size), y = valor.relativo, fill = as.factor(p_umbral))+
+  geom_boxplot()+ facet_wrap(~factor_exp_lambda) + 
+  geom_hline(yintercept = 1) +
+  labs(y = TeX("$\\lambda$ Estimación/Modelo"), x = "Tamaño muestra", fill = TeX("$p_{umbral}$"))
+ggsave("./outputs_charts/boxplots_estimacion_lambda.png",width = 32, height = 18, units = "cm")
+
+# Error MAD del est.lambda/lambda_poblacional en función del tamaño de muestra
+df_estimaciones |> 
+  mutate(
+    factor_exp_lambda = case_match(
+      exp_lambda, 
+      c(4,19) ~ "Continuo", 
+      .default = as.factor(exp_lambda)
+    )) |>
+  group_by(factor_exp_lambda,size,p_umbral) |>
+  summarise(valor.relativo = median(est.lamb/exp_lambda)) -> df_resumen
+
+ggplot(df_resumen) + aes(x = as.factor(size), y = valor.relativo, 
+                         colour = as.factor(p_umbral), group = as.factor(p_umbral)) +
+  geom_line() + geom_point() + facet_wrap(~factor_exp_lambda) +
+  geom_hline(yintercept = 1) +
+  labs(y = "Mediana Estimación/Modelo", x = "size", color = TeX("$p_{umbral}$"))
+ggsave("./outputs_charts/median_lambda.png",width = 32, height = 18, units = "cm")
