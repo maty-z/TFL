@@ -1,0 +1,5 @@
+ggplot2
+dplyr
+tidyr
+patchwork
+latex2exp
