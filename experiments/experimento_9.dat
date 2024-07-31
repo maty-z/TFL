@@ -1,0 +1,2 @@
+"name"	"seed"	"size"	"replicates"	"p_umbral"	"exp_lambda"	"alpha_pen"	"n_pen"	"c"
+"experimento_9"	9	1500	1000	0.95	0.5	0.4	1	0.8
