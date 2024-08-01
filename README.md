@@ -26,10 +26,10 @@ PN(u) = \hat l(u) + c\frac{u^n}{|muestra|^\alpha}
 ```
 Donde $|muestra|$ es el tamaño de la muestra, y
 ``` math
-\widehat\lambda(u) = \frac{\sum_{i=1}^n\mathbf{I}_{X_i>u}}{\sum_{i=1}^n(X_i-u)\mathbf{I}_{X_i>u}}
+\widehat\lambda(u) = \frac{\sum\mathbf{I}_{X_i>u}}{\sum(X_i-u)\mathbf{I}_{X_i>u}}
 ```
 ``` math
-\widehat F_u(y) = \frac{\sum_{i=1}^n\mathbf{I}_{X_i-u\leq y}\mathbf{I}_{X_i>u}}{\sum_{i=1}^n\mathbf{I}_{X_i>u}}
+\widehat F_u(y) = \frac{\sum\mathbf{I}_{X_i-u\leq y}\mathbf{I}_{X_i>u}}{\sum\mathbf{I}_{X_i>u}}
 ```
 ``` math
 \widehat l(u) = \sup_{y\geq0} |\widehat F_u(y)-F_{\widehat\lambda(u)}|
