@@ -25,9 +25,9 @@ $$
 PN(u) = \hat l(u) + c\frac{u^n}{|muestra|^\alpha}
 $$
 Donde $|muestra|$ es el tamaño de la muestra, y
-- $$ \widehat\lambda(u) = \frac{\sum_{i=1}^n\mathbf{I}_{X_i>u}}{\sum_{i=1}^n(X_i-u)\mathbf{I}_{X_i>u}} $$
-- $$ \widehat F_u(y) = \frac{\sum_{i=1}^n\mathbf{I}_{X_i-u\leq y}\mathbf{I}_{X_i>u}}{\sum_{i=1}^n\mathbf{I}_{X_i>u}} $$
-- $$ \widehat l(u) = \sup_{y\geq0} |\widehat F_u(y)-F_{\widehat\lambda(u)}| $$
+$$ \widehat\lambda(u) = \frac{\sum_{i=1}^n\mathbf{I}_{X_i>u}}{\sum_{i=1}^n(X_i-u)\mathbf{I}_{X_i>u}} $$
+$$ \widehat F_u(y) = \frac{\sum_{i=1}^n\mathbf{I}_{X_i-u\leq y}\mathbf{I}_{X_i>u}}{\sum_{i=1}^n\mathbf{I}_{X_i>u}} $$
+$$ \widehat l(u) = \sup_{y\geq0} |\widehat F_u(y)-F_{\widehat\lambda(u)}| $$
 Con $F_{\widehat\lambda}$ función de distribución acumulada de una variable aleatoria que se distribuye como $\mathcal{E}(\widehat\lambda)$.
 
 ### Ejemplo de uso
