@@ -62,3 +62,19 @@ u.estimado <- u_est(
 ```
 
 En el script `generar_muestras.R` hay otras funciones que optimizan la generación de muestras, y también se agregó una función generadora de muestras que siguen un modelo Normal-Exponencial (o sea existe un umbral tal que datos por debajo del umbral se comportan como una normal y por encima como una exponencial), no se utilizó para la realización de la tesis.
+
+## Reproducción de experimentos
+Para automatizar la realización de las pruebas y el análisis de los resultados se realizaron los scripts cuyos nombres empiezan con `s_*`. Estos cuentan también con la posibilidad de exportar y guardar los distintos resultados tanto finales como intermedios. Se asume que el directorio de trabajo posee la siguiente estructura:
+```
+repo
+    |_data
+    |_experiments
+    |_outputs
+    |_outputs_charts
+    |_outputs_cuantiles
+    |_src
+  ```
+
+Dentro de este repositorio un experimento consiste en la realización de $n$ replicaciones de la acción de definir un escenario, esto es definir los parámetros del modelo, tomar muestra, y realizar las cuentas necesarias.
+En este trabajo $n$ = 1000. Para ejecutar las pruebas basta con ejecutar el script `s_experimentos.R`. Dicho script permite la ejecución de múltiples escenarios con múltiples replicaciones, modificando los parámetros de los escenarios según corresponda.
+Para reproducir los resultados de la tesis buscar el archivo [resumen_experimentos.txt] el cual indica los parámetros de cada experimento inclusive la semilla utilizada para la generación de las muestras aleatorias.
