@@ -22,9 +22,9 @@ Los valores que se utilizaron en la tesis son: $1,\ 0.4,\ 0.8$ respectivamente.
 
 Internamente el algoritmo busca minimizar:
 $$
-PN(u) = \hat l(u) + c\frac{u^n}{{\#muestra}^\alpha}
+PN(u) = \hat l(u) + c\frac{u^n}{|muestra|^\alpha}
 $$
-Donde ${\#muestra}^\alpha$ es el tamaño de la muestra, y
+Donde $|muestra|$ es el tamaño de la muestra, y
 - $$
     \widehat\lambda(u) = \frac{\sum_{i=1}^n\mathbf{I}_{X_i>u}}{\sum_{i=1}^n(X_i-u)\mathbf{I}_{X_i>u}}
 $$
