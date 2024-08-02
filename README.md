@@ -86,5 +86,13 @@ En este punto los valores estimados son:
 - Umbral.
 - Parámetro de la exponencial que modela la distribución de excesos considerando el umbral previamente estimado.
 
+#### Análisis de resultados
+Luego utilizar el script [s_analizar.R](scr/s_analizar.R) donde procesa los resultados de los obtenidos y realiza los distintos gráficos mostrados en la tesis. Se exportarán los gráficos a la carpeta _output_charts_ (es necesario crearla).
+
 ### Estimación cuantiles
-La decisión de analizar y comparar los cuantiles fue realizada posteriormente a estos experimentos, y para no tener que hacer de nuevo todo el proceso se lo realizó en un script aparte.
+La decisión de analizar y comparar los cuantiles fue realizada posteriormente a estos experimentos y para no tener que hacer de nuevo todo el proceso se lo realizó en un script aparte, [s_analizar_cuantiles.R](scr/s_analizar_cuantiles). 
+
+En dicho script se vuelven a leer las muestras generadas en los experimentos previo para calcular los cuantiles no paramétricos, y también utilizando el umbral estimado previamente, se estima el parámetro $p_{umbral}$ (o sea la proporción de datos por debajo del umbral) y con esas estimaciones se estiman los cuantiles paramétricos. También se calculan los cuantiles paramétricos poblacionales para las comparaciones.
+Los resultados obtenidos se exportan en la carpeta [outputs_cuantiles](outputs_cuantiles), por un lado los resultados de los experimentos ya obtenidos anteriormente con nuevas columnas correspondientes a los cuantiles no paramétricos. En otro archivo se exportan los cuantiles paramétricos, la correspondencia es fila a fila.
+
+Luego en el mismo script está la posibilidad de realizar los gráficos y de exportarlos a la carpeta _outputs_charts_.
