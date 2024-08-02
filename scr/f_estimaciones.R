@@ -30,8 +30,8 @@ f_obj <- function(u,muestra,alpha_pen,n_pen,c) {
 
 # Dada una muestra evalúa la función objetivo en los u candidatos a umbral,
 #luego devuelve el que minimiza la f_obj
-u_est <- function(muestra, n_pen, alpha_pen, c) {
-  u_interval <- c(quantile(muestra, probs = 0.5),
+u_est <- function(muestra, n_pen, alpha_pen, c, qinf = 0.5) {
+  u_interval <- c(quantile(muestra, probs = qinf),
                   quantile(muestra, probs = 0.99)
                  )
 
