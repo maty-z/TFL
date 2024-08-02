@@ -11,7 +11,7 @@ Próximamente se podrá consultar la tesis en la biblbioteca digital de la Facul
 
 ## Funcionamiento
 Para estimar el umbral alcanza solo con poseer el **R** base, no es necesario ninguna librería extra.
-Luego descargar el script _f\_estimaciones.R_ dentro de la carpeta _src_. 
+Luego descargar el script [f_estimaciones.R](scr/f_estimaciones.R) dentro de la carpeta [src](scr). 
 
 Utilizar la función **u_est** para calcular el umbral. Requiere como argumentos la muestra como un vector, y pasarle los parámetros, que determinan la función de penalización que utiliza el alogritmo internamente:
 - $n$ (n_pen)
@@ -61,10 +61,10 @@ u.estimado <- u_est(
     )
 ```
 
-En el script `generar_muestras.R` hay otras funciones que optimizan la generación de muestras, y también se agregó una función generadora de muestras que siguen un modelo Normal-Exponencial (o sea existe un umbral tal que datos por debajo del umbral se comportan como una normal y por encima como una exponencial), no se utilizó para la realización de la tesis.
+En el script [generar_muestras.R](scr/generar_muestras.R) hay otras funciones que optimizan la generación de muestras, y también se agregó una función generadora de muestras que siguen un modelo Normal-Exponencial (o sea existe un umbral tal que datos por debajo del umbral se comportan como una normal y por encima como una exponencial), no se utilizó para la realización de la tesis.
 
 ## Reproducción de experimentos
-Para automatizar la realización de las pruebas y el análisis de los resultados se realizaron los scripts cuyos nombres empiezan con `s_*`. Estos cuentan también con la posibilidad de exportar y guardar los distintos resultados tanto finales como intermedios. Se asume que el directorio de trabajo posee la siguiente estructura:
+Para automatizar la realización de las pruebas y el análisis de los resultados se realizaron los scripts cuyos nombres empiezan con `s_*` dentro de la carpeta [scr](scr/). Estos cuentan también con la posibilidad de exportar y guardar los distintos resultados tanto finales como intermedios. Se asume que el directorio de trabajo posee la siguiente estructura:
 ```
 repo
     |_data
@@ -75,6 +75,16 @@ repo
     |_src
   ```
 
-Dentro de este repositorio un experimento consiste en la realización de $n$ replicaciones de la acción de definir un escenario, esto es definir los parámetros del modelo, tomar muestra, y realizar las cuentas necesarias.
-En este trabajo $n$ = 1000. Para ejecutar las pruebas basta con ejecutar el script `s_experimentos.R`. Dicho script permite la ejecución de múltiples escenarios con múltiples replicaciones, modificando los parámetros de los escenarios según corresponda.
-Para reproducir los resultados de la tesis buscar el archivo [resumen_experimentos.txt] el cual indica los parámetros de cada experimento inclusive la semilla utilizada para la generación de las muestras aleatorias.
+Dentro de este repositorio un experimento consiste en la realización de $n_replicaciones$ de un mismo escenario, esto es definir los parámetros del modelo y definir el tamaño de la muestra aleatoria, tomarla, y realizar las cuentas necesarias.
+En este trabajo $n_replicaciones$ = 1000. Para ejecutar las pruebas basta con ejecutar el script `s_experimentos.R`. Dicho script permite la ejecución de múltiples escenarios con múltiples replicaciones modificando los parámetros de los escenarios según corresponda.
+Para reproducir los resultados de la tesis buscar el archivo [resumen_experimentos.txt](resumen_experimentos.txt) el cual indica los parámetros de cada experimento inclusive la semilla utilizada para la generación de las muestras aleatorias.
+
+### Estimación umbral y exponencial
+Cada experimento va a generar las $n_replicaciones$, en este caso $1000$, muestras a partir de una semilla y las va a trabajar de manera matricial. Si está activada la opción de exportar, se van a almacenar en la carpeta _data_ (es necesario crearla). El script genera las (en este caso) 1000 muestras de un mismo tamaño y las va a ubicar por filas en una matriz. Y luego procede a hacer las cuentas y estimaciones, devolviendo finalmente un `data.frame` con la misma cantidad de filas y una columna por cada valor estimado y los parámetros del experimento. 
+
+En este punto los valores estimados son:
+- Umbral.
+- Parámetro de la exponencial que modela la distribución de excesos considerando el umbral previamente estimado.
+
+### Estimación cuantiles
+La decisión de analizar y comparar los cuantiles fue realizada posteriormente a estos experimentos, y para no tener que hacer de nuevo todo el proceso se lo realizó en un script aparte.
