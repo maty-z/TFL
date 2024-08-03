@@ -1,6 +1,5 @@
 library(shiny)
 library(bslib)
-library(latex2exp)
 
 #### Importo librerías y funciones auxiliares
 #Importo funciones para generar muestras: 
