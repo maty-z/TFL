@@ -3,3 +3,5 @@ dplyr
 tidyr
 patchwork
 latex2exp
+shiny
+bslib
