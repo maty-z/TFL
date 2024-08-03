@@ -17,8 +17,9 @@ Utilizar la función **u_est** para calcular el umbral. Requiere como argumentos
 - $n$ (n_pen)
 - $\alpha$ (alpha_pen)
 - $c$
+-_qinf_
 
-Los valores que se utilizaron en la tesis son: $1,\ 0.4,\ 0.8$ respectivamente.
+Los valores que se utilizaron en la tesis son: $1,\ 0.4,\ 0.8,\ 0.5$ respectivamente.
 
 Internamente el algoritmo busca minimizar:
 ``` math
@@ -35,6 +36,8 @@ Donde $|muestra|$ es el tamaño de la muestra, y
 \widehat l(u) = \sup_{y\geq0} |\widehat F_u(y)-F_{\widehat\lambda(u)}|
 ```
 Con $F_{\widehat\lambda}$ función de distribución acumulada de una variable aleatoria que se distribuye como $\mathcal{E}(\widehat\lambda)$.
+
+El parámetro _qinf_ determina el cuantil no paramétrico inferior al partir de cual buscar el umbral, por defecto es el cuantil $0.5$, esto significa que los $u$ candidatos son los correspondientes a la mitad más grande de la muestra. Esto es razonable, ya que al querer reconocer el régimen de excesos, es de esperar que el umbral se encuentre dentro de la mitad más grande de la muestra.
 
 ### Ejemplo de uso
 ``` R
