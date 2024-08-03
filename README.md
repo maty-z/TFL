@@ -96,3 +96,7 @@ En dicho script se vuelven a leer las muestras generadas en los experimentos pre
 Los resultados obtenidos se exportan en la carpeta [outputs_cuantiles](outputs_cuantiles), por un lado los resultados de los experimentos ya obtenidos anteriormente con nuevas columnas correspondientes a los cuantiles no paramétricos. En otro archivo se exportan los cuantiles paramétricos, la correspondencia es fila a fila.
 
 Luego en el mismo script está la posibilidad de realizar los gráficos y de exportarlos a la carpeta _outputs_charts_.
+
+## App
+Se desarrolló una **shiny app** en la cual se pueden generar distintas muestras correspondientes a un modelo uniforme-exponencial o normal-exponencial y visualizar el umbral estimado por nuestra propuesta de detección. El código de la misma se encuentra en [scr/app.R](scr/app.R), y para ejecutarla en una consola en **R** ejecutar el siguiente código:
+`shiny::runApp("./scr/app.R")`
