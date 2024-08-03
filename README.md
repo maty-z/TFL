@@ -17,7 +17,7 @@ Utilizar la función **u_est** para calcular el umbral. Requiere como argumentos
 - $n$ (n_pen)
 - $\alpha$ (alpha_pen)
 - $c$
--_qinf_
+- _qinf_
 
 Los valores que se utilizaron en la tesis son: $1,\ 0.4,\ 0.8,\ 0.5$ respectivamente.
 
