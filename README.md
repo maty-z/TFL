@@ -60,7 +60,8 @@ u.estimado <- u_est(
     muestra,
     n_pen = 1, 
     alpha_pen = 0.4, 
-    c = 1
+    c = 1,
+    qinf = 0.5
     )
 ```
 
